@@ -16,3 +16,6 @@ class Message(db.Model):
     name = db.Column(db.String(20))
     body = db.Column(db.String(200))
     timestamp = db.Column(db.DateTime, default=datetime.utcnow, index=True)
+
+    def as_dict(self):
+       return {c.name: getattr(self, c.name) for c in self.__table__.columns}

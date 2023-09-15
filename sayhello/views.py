@@ -5,6 +5,7 @@
     :copyright: © 2018 Grey Li <withlihui@gmail.com>
     :license: MIT, see LICENSE for more details.
 """
+import json
 from flask import flash, redirect, url_for, render_template
 
 from sayhello import app, db
@@ -26,3 +27,8 @@ def index():
 
     messages = Message.query.order_by(Message.timestamp.asc()).all()
     return render_template('index.html', form=form, messages=messages)
+
+@app.route('/messages', methods=['GET'])
+def message():
+    messages = Message.query.order_by(Message.timestamp.asc()).all()
+    return json.dumps(list(map(lambda x: x.as_dict(), messages)), default=str)
