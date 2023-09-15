@@ -24,5 +24,5 @@ def index():
         flash('Your message have been sent to the world!')
         return redirect(url_for('index'))
 
-    messages = Message.query.order_by(Message.timestamp.desc()).all()
+    messages = Message.query.order_by(Message.timestamp.asc()).all()
     return render_template('index.html', form=form, messages=messages)
